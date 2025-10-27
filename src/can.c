@@ -8,6 +8,7 @@ static struct can2040 cbus;
 static void can2040_cb(struct can2040 *cd, uint32_t notify, struct can2040_msg *msg)
 {
     // Put your code here....
+    // can2040_transmit(&cbus, )
 }
 
 static void PIOx_IRQHandler(void)
