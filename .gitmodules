@@ -14,3 +14,6 @@
 	path = lib/unity
 	url = git@github.com:ThrowTheSwitch/Unity.git
     ignore = dirty
+[submodule "lib/can"]
+	path = lib/can
+	url = https://github.com/uofu-emb-24/can2040
