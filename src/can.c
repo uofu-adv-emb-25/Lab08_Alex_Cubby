@@ -2,13 +2,26 @@
 #include <hardware/regs/intctrl.h>
 #include <stdio.h>
 #include <pico/stdlib.h>
+#include <FreeRTOS.h>
+#include <task.h>
 
 static struct can2040 cbus;
+
+void send_task(void *params){
+    struct can2040_msg msg = {0};
+    msg.id = 0x100;
+    msg.dlc = 1;
+    msg.data[0] = 42;
+
+    while(1){
+        can2040_transmit(&cbus, &msg);
+        vTaskDelay(1000);
+    }
+}
 
 static void can2040_cb(struct can2040 *cd, uint32_t notify, struct can2040_msg *msg)
 {
     // Put your code here....
-    // can2040_transmit(&cbus, )
 }
 
 static void PIOx_IRQHandler(void)
@@ -33,4 +46,12 @@ void canbus_setup(void)
 
     // Start canbus
     can2040_start(&cbus, sys_clock, bitrate, gpio_rx, gpio_tx);
+}
+
+int main(void){
+    stdio_init_all();
+    canbus_setup();
+    TaskHandle_t can_send_handle;
+    xTaskCreate(send_task, "CAN Send Task", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+1, &can_send_handle);
+    vTaskStartScheduler();
 }

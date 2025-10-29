@@ -10,10 +10,9 @@
     shallow = true
     branch = V11.1.0
     ignore = dirty
-[submodule "unity"]
+[submodule "lib/can"]
+	path = lib/can2040
+	url = https://github.com/uofu-emb-24/can2040
+[submodule "lib/unity"]
 	path = lib/unity
 	url = git@github.com:ThrowTheSwitch/Unity.git
-    ignore = dirty
-[submodule "lib/can"]
-	path = lib/can
-	url = https://github.com/uofu-emb-24/can2040

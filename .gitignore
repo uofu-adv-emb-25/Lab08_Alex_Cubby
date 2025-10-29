@@ -6,3 +6,4 @@ log
 *-asciinema
 *.pid
 *-profile
+.vscode
