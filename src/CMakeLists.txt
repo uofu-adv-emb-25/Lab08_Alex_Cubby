@@ -5,8 +5,8 @@ add_executable(can can.c
 
 # Modify the below lines to enable/disable output over UART/USB.
 # These are mutually exclusive, only set one.
-pico_enable_stdio_uart(can 0)
-pico_enable_stdio_usb(can 1)
+pico_enable_stdio_uart(can 1)
+pico_enable_stdio_usb(can 0)
 
 # Add the libraries to the build
 target_link_libraries(can PRIVATE
@@ -35,6 +35,8 @@ find_program(PICOTOOL picotool)
 # add_custom_target(flash ${PICOTOOL} load -f $<TARGET_FILE:hello_freertos> DEPENDS hello_freertos)
 
 # add_custom_target(openocd_flash ${OPENOCD} -s ${OPENOCD_PATH} -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c 'adapter speed 5000; program "$<TARGET_FILE:hello_freertos>" verify reset exit' DEPENDS hello_freertos)
+
+add_custom_target(flash ${PICOTOOL} load -f $<TARGET_FILE:can> DEPENDS can)
 
 add_custom_target(flash_can
   COMMAND ${OPENOCD} -s ${OPENOCD_PATH}
