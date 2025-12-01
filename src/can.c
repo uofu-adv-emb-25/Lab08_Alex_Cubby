@@ -20,8 +20,7 @@ void send_task(void *params){
     while(1){
         int ok = can2040_transmit(&cbus, &msg);
         printf("TX enqueue: %d\n", ok);
-        // vTaskDelay(pdMS_TO_TICKS(1000));
-        busy_wait_ms(1000);
+        busy_wait_ms(10);   // Even very low delay allows throughput on low-priority
     }
 }
 
